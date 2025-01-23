@@ -11,30 +11,61 @@ export default class Main extends Component {
     this.state = {
       newTask: '',
       tasks: [],
+      index: -1,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let { newTask } = this.state;
+    let { newTask, index } = this.state;
     const { tasks } = this.state;
     newTask = newTask.trim();
 
     if (tasks.indexOf(newTask) !== -1) return;
 
     const newsTasks = [...tasks];
+    if (index === -1) {
+      this.setState({
+        tasks: [...newsTasks, newTask],
+        newTask: '',
+      });
+    } else {
+      newsTasks[index] = newTask;
 
-    this.setState({
-      tasks: [...newsTasks, newTask],
-    });
+      this.setState({
+        tasks: [...newsTasks],
+        index: -1,
+      });
+    }
   }
 
   handleChange(e) {
     this.setState({
       newTask: e.target.value,
+    });
+  }
+
+  handleEdit(e, index) {
+    const { tasks } = this.state;
+
+    this.setState({
+      index,
+      newTask: tasks[index],
+    });
+  }
+
+  handleDelete(e, index) {
+    console.log(e, index);
+    const { tasks } = this.state;
+    const newsTasks = [...tasks];
+    newsTasks.splice(index, 1);
+    this.setState({
+      tasks: [...newsTasks],
     });
   }
 
@@ -56,12 +87,18 @@ export default class Main extends Component {
         </form>
 
         <ul className="tasks">
-          {tasks.map((task) => (
+          {tasks.map((task, index) => (
             <li key={task}>
               {task}
               <span>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit
+                  className="edit"
+                  onClick={(e) => this.handleEdit(e, index)}
+                />
+                <FaWindowClose
+                  className="delete"
+                  onClick={(e) => this.handleDelete(e, index)}
+                />
               </span>
             </li>
           ))}
