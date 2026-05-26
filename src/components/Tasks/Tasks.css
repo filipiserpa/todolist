@@ -1,0 +1,63 @@
+.tasks {
+  margin-top: 30%;
+}
+
+.tasks li {
+  display: flex;
+  justify-content: space-between;
+  align-content: space-around;
+  align-items: center;
+  width: auto;
+  height: 25px;
+  margin: 8px auto;
+  padding: 5px;
+  text-align: left;
+  background-color: rgb(226, 226, 226);
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.tasks li:hover {
+  background-color: rgb(206, 231, 255);
+  transition: all 600ms;
+}
+
+.tasks li:hover .edit,
+.tasks li:hover .delete {
+  color: black;
+}
+
+.tasks li .edit:hover {
+  color: rgb(174, 169, 25);
+  transition: all 600ms;
+  border-color: black;
+}
+
+.tasks li .delete:hover {
+  color: rgb(171, 2, 2);
+  transition: all 600ms;
+  border-color: black;
+}
+
+.tasks li .edit,
+.tasks li .delete {
+  cursor: pointer;
+  transition: all 600ms;
+}
+
+.tasks li .edit {
+  margin-right: 5px;
+  color: rgb(126, 128, 60)
+}
+
+.tasks li .delete {
+  margin-left: 5px;
+  color: rgb(179, 27, 27)
+}
+
+.tasks li span {
+  display: flex;
+  font-size: 15px;
+  margin: 10px;
+}
