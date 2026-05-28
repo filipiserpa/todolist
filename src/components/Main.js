@@ -19,12 +19,26 @@ export default class Main extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
+  componentDidMount() {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    if (!tasks) return;
+
+    this.setState({ tasks });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    if (tasks === prevState.tasks) return;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     let { newTask, index } = this.state;
     const { tasks } = this.state;
     newTask = newTask.trim();
 
+    if (newTask === '' || newTask === null) return;
     if (tasks.indexOf(newTask) !== -1) return;
 
     const newsTasks = [...tasks];
